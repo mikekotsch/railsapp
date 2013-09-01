@@ -1,0 +1,31 @@
+<h1>Listing countdowns</h1>
+
+<%= link_to 'New Countdown', new_countdown_path, {:class => 'btn btn-success btn-lg', :style => 'color:white'} %>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Time</th>
+      <th>Picture</th>
+      <th>Link</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @countdowns.each do |countdown| %>
+      <tr>
+        <td><%= countdown.title %></td>
+        <td><%= countdown.time %></td>
+        <td><%= image_tag(countdown.picture_url, :height => 50) %></td>
+        <td><%= countdown.link %></td>
+        <td><%= link_to 'Show', countdown, :class => 'btn btn-success' %></td>
+        <td><%= link_to 'Edit', edit_countdown_path(countdown), {:class => 'btn btn-default'} %></td>
+        <td><%= link_to 'Destroy', countdown, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
