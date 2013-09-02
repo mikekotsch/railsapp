@@ -1,33 +1,35 @@
 <%= form_for(@countdown, :html => { :role => 'form', :class => 'form' }) do |f| %>
   <% if @countdown.errors.any? %>
     <div class="alert alert-danger">
-      <p><%= pluralize(@countdown.errors.count, "error") %> prohibited this countdown from being saved:</p>
+			
+			<dl class="dl-horizontal" style="margin:0">
+			  <dt><%= pluralize(@countdown.errors.count, "error") %>:</dt>
+				
+	      <% @countdown.errors.full_messages.each do |msg| %>
+	        <dd><%= msg %></dd>
+	      <% end %>
+			</dl>
 
-      <ul>
-      <% @countdown.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group col-md-6 col-md-offset-3">
     <%= f.label :title %><br>
-    <%= f.text_field :title, :class => 'form-control' %>
+    <%= f.text_field :title, :class => 'form-control', :autofocus => true %>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-6 col-md-offset-3">
     <%= f.label :time %><br>
     <%= f.datetime_select :time, order: [:day, :month, :year], :minute_step => 5, :class => 'dropdown-menu' %>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-6 col-md-offset-3">
     <%= f.label :picture %><br>
     <%= f.file_field :picture %>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-6 col-md-offset-3">
     <%= f.label :link %><br>
     <%= f.text_field :link, :class => 'form-control' %>
   </div>
-  <div class="actions">
+  <div class="actions col-md-6 col-md-offset-3">
     <%= f.submit 'Start counting', :class => 'btn btn-success btn-lg' %>
   </div>
 <% end %>

@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Railsapp</title>
+  <%= yield :pagetitle %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+	
+	<%= yield :ogtags %>
+	
 </head>
 <body>
 	
-	<div class="container">
-		<%= yield %>
+	<%= yield :background %>
+	
+	<div class="jumbotron" id="jumbotron">
+		<div class="container text-center">
+			<!-- <%= yield %> -->
+			
+			<%= yield :title %>
+			
+			<%= yield :countdown %>
+			
+			<div id="countdown" class="text-center">
+				<table border="0" id="countdown-table" class="table table-condensed table-nonfluid count">
+										
+				</table>
+			</div>
+			
+			
+			
+			<!-- <div id="buttons">
+				<%= yield :buttons %>
+			</div> -->
+			
+		</div>
 	</div>
+	
+	<div class="container text-center" id="new_countdown">
+	        <h1>Create your own countdown</h1>
+	        <p class="lead">You are looking forward to something? Something your friends might enjoy as well? </br>Share it with them! And remain in joyful anticipation together.</p>
+	        <%= link_to 'Create your own countdown', new_countdown_path, {:class => 'btn btn-success btn-lg'} %>
+	</div>	
+	
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+		var height = $(window).height() - 25; 
+		$("#jumbotron").height(height);
+	</script>
 
 </body>
 </html>

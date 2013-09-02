@@ -1,24 +1,77 @@
-<p id="notice"><%= notice %></p>
+<p class="alert alert-success"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @countdown.title %>
-</p>
+<% content_for :pagetitle do %>
+	<title><%= @countdown.title %> – We are lookingforward.to</title>
+<% end %>
 
-<p>
-  <strong>Time:</strong>
-  <%= @countdown.time.to_i %>
-</p>
+<% content_for :title do %>
+	<h1 class="text-center title">
+ 	 <strong><%= @countdown.title %></strong><a href="<%= @countdown.link %>" type="button" class="btn btn-default btn-xs" style="margin-left: 15px; vertical-align: 40%; line-height: 1.5em">Details</a>
+	</h1>
+<% end %>
 
-<p>
-  <strong>Picture:</strong>
-  <%= image_tag(@countdown.picture_url, :width => 600) if @countdown.picture.present? %>
-</p>
+<% content_for :ogtags do %>
+	<meta name="og:image" content="<%= @countdown.picture_url %>" />
+  <meta name="og:video" content="http://www.myflashstore.net/flash/solo.swf?beat_id=373456&autoplay=true" />
+  <meta name="og:video:height" content="100" />
+  <meta name="og:video:width" content="400" />
+  <meta name="og:video:type" content="application/x-shockwave-flash" /> 
+  <meta property="fb:app_id" content="myid" /> 
+  <meta property="og:type"   content="video" /> 
+  <meta property="og:url"    content="<%= "http://sdff.herokuapp.com" + countdown_path(@countdown) %>" /> 
+  <meta property="og:title"  content="We are lookingforward.to <%= @countdown.title %>" /> 
+  <meta property="og:image"  content="<%= @countdown.picture_url %>" /> 
+<% end %>
 
-<p>
-  <strong>Link:</strong>
-  <%= @countdown.link %>
-</p>
 
-<%= link_to 'Edit', edit_countdown_path(@countdown), :class => 'btn btn-default' %>
-<%= link_to 'Back', countdowns_path, :class => 'btn btn-success' %>
+<% content_for :countdown do %>
+  
+	<script type='text/javascript'>
+		
+		var count = '<%= @countdown.time.to_i %>';
+		var now = Math.round(new Date().getTime() / 1000);
+		var days, hours, minutes, seconds,tmp;
+		
+		var timer = $.timer(
+			function() {
+				tmp = count-now;
+				if(tmp <=0 ) {
+					$('.count').html('<tr><th>This event is over.</th></tr>');
+				}
+				else {
+					seconds = tmp % 60;
+					if (seconds < 10) {
+						seconds = '0'+seconds;
+					}
+					minutes = Math.floor(tmp/60) % 60;
+					if (minutes < 10) {
+						minutes = '0'+minutes;
+					}
+					hours 	= Math.floor(tmp/60/60) % 24;
+					if (hours < 10) {
+						hours = '0'+hours;
+					}
+					days		= Math.floor(tmp/60/60/24);
+					
+					$('.count').html('<tr><th>'+days+'</th><th>:</th><th>'+hours+'</th><th>:</th><th>'+minutes+'</th><th>:</th><th>'+seconds+'</th></tr><tr><td>Days</td><td></td><td>Hours</td><td></td><td>Minutes</td><td></td><td>Seconds</td></tr>');
+				}
+				count--;
+			}, 1000, true
+		);
+    
+  </script>
+<% end %>
+
+<% content_for :background do %>
+	<style type="text/css" media="screen">
+		.jumbotron {
+  		background: url('<%= @countdown.picture_url %>') no-repeat center center;
+			background-size: 100% auto;
+		}
+	</style>
+<% end %>
+
+<% content_for :buttons do %>
+	<%= link_to 'Edit', edit_countdown_path(@countdown), :class => 'btn btn-default' %>
+	<%= link_to 'Back', countdowns_path, :class => 'btn btn-success' %>
+<% end %>

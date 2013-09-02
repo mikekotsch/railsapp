@@ -1,6 +1,8 @@
-class CountdownsController < ApplicationController
+class CountdownsController < ApplicationController  
+  before_filter :authenticate, only: [:index, :edit, :update, :destroy]
   before_action :set_countdown, only: [:show, :edit, :update, :destroy]
-
+  layout :resolve_layout
+  
   # GET /countdowns
   # GET /countdowns.json
   def index
@@ -70,5 +72,26 @@ class CountdownsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def countdown_params
       params.require(:countdown).permit(:title, :time, :picture, :link)
+    end
+    
+    def resolve_layout
+      case action_name
+      when 'new', 'create', 'update'
+        'new'
+      when 'show'
+        'application'
+      when 'index'
+        'index'
+      else
+        'admin'
+      end
+    end
+    
+    protected
+    
+    def authenticate
+      authenticate_or_request_with_http_basic do |username, password|
+        username == 'foo' && password == 'bar'
+      end
     end
 end

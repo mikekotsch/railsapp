@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Railsapp</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	
+	<div class="container">
+		<div class="row4">
+			<%= yield %>
+		</div>
+	</div>
+
+</body>
+</html>
