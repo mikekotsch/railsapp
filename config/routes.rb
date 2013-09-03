@@ -7,6 +7,8 @@ Railsapp::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root :to => redirect('/countdowns')
   
+  # map.show_countdown '/:id', :controller => 'countdowns', :action => 'show'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

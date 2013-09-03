@@ -6,6 +6,10 @@ gem 'rails', '4.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+# gem 'pg'
+
+gem "inferred_slug", "~> 1.1.0"
+
 gem 'carrierwave'
 
 gem 'validates_timeliness', '~> 3.0'
